@@ -1,3 +1,5 @@
+<script type="text/javascript">
+
 jQuery(document).ready(function(){
   //取旧账期天数
   var actOldZq = jQuery("#field7223").val();
@@ -49,8 +51,34 @@ jQuery(document).ready(function(){
 
 function checkCustomize(){
   //付款条件
-  var actFktj = parseInt(jQuery("#field9584").val());
-  var pasFkth = parseInt(jQuery("#field9586").val());
+  var actFktj = parseInt(cus_getFieldValue("field9584"));
+  var pasFktj = parseInt(cus_getFieldValue("field9586"));
+
+  if (actFktj == 0) {
+    var actJzr = parseInt(cus_getFieldValue("field7229"));
+    var actFkr = parseInt(cus_getFieldValue("field7230"));
+    if ( actJzr <= 0 || actJzr>=31 ) {
+      window.top.Dialog.alert("申请结账日无效");
+      return false;
+    }
+    if (actFkr <= 0 || actFkr > 31) {
+      window.top.Dialog.alert("申请付款日无效");
+      return false;
+    }
+  }
+
+  if (pasFktj == 0) {
+    var pasJzr = parseInt(cus_getFieldValue("field7238"));
+    var pasFkr = parseInt(cus_getFieldValue("field7239"));
+    if ( pasJzr <= 0 || pasJzr>=31 ) {
+      window.top.Dialog.alert("申请结账日无效");
+      return false;
+    }
+    if (pasFkr <= 0 || pasFkr > 31) {
+      window.top.Dialog.alert("申请付款日无效");
+      return false;
+    }
+  }
 
   //取旧账期天数
   var actOldZq = parseInt(jQuery("#field7223").val());
@@ -152,3 +180,6 @@ function cancelEssAttr_n(fieldVal) {
   jQuery("#field"+fieldVal).attr('viewtype','0');
   jQuery("#field"+fieldVal+"spanimg").html('');
 }
+
+
+</script>
