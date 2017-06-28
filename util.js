@@ -133,6 +133,34 @@ function findEleInArray(arr,val) {
   }
 }
 
+//比较field1与field2的值，若不同，在fieldId同级dom下新增label-danger,值为labelVal
+function hlLabelField(field1,field2,fieldId,labelVal) {
+  var labelVal = arguments[3]?arguments[3]:"New"
+  var var1 = jQuery("#field"+field1.toString()).val();
+  var var2 = jQuery("#field"+field2.toString()).val();
+  if (var1 != var2) {
+    var tempSpan = document.createElement("span");
+    tempSpan.className = "label label-danger label-xs";
+    tempSpan.style = "color:white!important";
+    tempSpan.innerHTML = labelVal;
+    document.getElementById(fieldId).parentNode.appendChild(tempSpan);
+  }
+}
+
+//插入CSS文件
+function insertBSCSS(){
+  var head = document.getElementsByTagName('head')[0],
+    cssURL = '/cus_web/css/bootstrap.min.css',
+    linkTag = document.createElement('link');
+    linkTag.id = 'dynamic-style';
+ linkTag.href = cssURL;
+ linkTag.setAttribute('rel','stylesheet');
+ linkTag.setAttribute('media','all');
+ linkTag.setAttribute('type','text/css');
+ head.appendChild(linkTag);
+}
+
+
 //手机端明细行相关
 
 function getDetailRownum_m(detailNum) {
