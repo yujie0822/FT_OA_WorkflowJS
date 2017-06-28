@@ -42,6 +42,7 @@ function hlLabelField(field1,field2,fieldId,labelVal) {
   if (var1 != var2) {
     var tempSpan = document.createElement("span");
     tempSpan.className = "label label-danger label-xs";
+    tempSpan.style = "color:white!important";
     tempSpan.innerHTML = labelVal;
     document.getElementById(fieldId).parentNode.appendChild(tempSpan);
   }

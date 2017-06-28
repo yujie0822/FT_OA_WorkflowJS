@@ -5,7 +5,7 @@ jQuery(document).ready(function(){
 });
 
 function checkCustomize(){
-  var plineTh = jQuery("#field8576").val();
+  var plineTh = parseInt(jQuery("#field8576").val());
    if (plineTh == 0) {
      window.top.Dialog.alert("产品线无审批阈值，请联系IT");
      return false;
@@ -52,7 +52,7 @@ function ycRoute() {
   var vType = jQuery("#field8005").val();
   var group = jQuery("#field8227").val();
   var pline = jQuery("#field8260").val();
-  var safeTag = jQuery("#field8230").val();
+  var safeTag = parseInt(jQuery("#field8230").val());
 
   var routeArr ="物控提交-->"+plmName;
   var usdAmount = parseFloat(jQuery("#field8219").val());
@@ -66,14 +66,18 @@ function ycRoute() {
   if ((usdAmount>=th_3) || ((group == "ACT") && (safeTag == 1)) || ((group == "PAS") && (safeTag == 1) && (pline =="SKW"))) {
     routeArr += ("-->"+segMng);
   }
+  if (usdAmount>=10000) {
+    routeArr += ("-->Frank");
+  }
   if (usdAmount>=th_4) {
     routeArr += ("-->董事长");
   }
-
+  routeArr += ("-->物控经理盖章");
   if ((vType == 1) || (vType == 2) || (vType == 4)) {
     routeArr += ("-->物控专员确认采购订单回签");
   }
-  routeArr += ("-->物控经理盖章-->结束");
+  routeArr += ("-->结束");
+
   alert(routeArr);
 }
 
