@@ -1,23 +1,60 @@
 function checkCustomize(){
   var canSubmit = true;
   var x = 0;
+  var reason = 0;
   var detail = wfDetail.doGet(0); // 得到第 1 个明细的数据
   var datas = detail.datas; // 获取明细数据
   for (var i=0;i<datas.length;i++){
 
     if (datas[i].wdfield7951 != "") {
-      if ((datas[i].wdfield7950 == "") || (datas[i].wdfield7953 == "") ) {
+      if (datas[i].wdfield7950 == "") {
         canSubmit = false;
         x = i;
+        reason = 1;
+        break;
+      }
+      else if (!checkDateGreaterThanToday(datas[i].wdfield7950)) {
+        canSubmit = false;
+        x=i;
+        reason = 2;
         break;
       }
     }
   }
   if (!canSubmit) {
-    window.top.Dialog.alert("请填写第"+(x+1).toString()+"行逾期客户的逾期原因与预计回款日期");
-    return false;
+    if (reason == 1) {
+      window.top.Dialog.alert("请填写第"+(x+1).toString()+"行逾期客户的逾期原因与预计回款日期");
+      return false;
+    }else if (reason == 2) {
+      window.top.Dialog.alert("第"+(x+1).toString()+"行行预计回款日期不能小于今日日期");
+      return false;
+    }
   }
   return true;
+}
+
+
+function checkDateGreaterThanToday(dateString) {
+  if (dateString.length!=10) {
+    console.log("DateError:"+dateString);
+    return false;
+  }
+  var t_Date = new Date();
+  var t_Day = t_Date.getDate();
+  var t_Month = t_Date.getMonth()+1;
+  var t_Year = t_Date.getFullYear();
+  var c_Day = parseInt(dateString.substring(8,10));
+  var c_Month = parseInt(dateString.substring(5,7));
+  var c_Year = parseInt(dateString.substring(0,4));
+  if (c_Year<t_Year) {
+    return false;
+  }else if (c_Month<t_Month) {
+    return false;
+  }else if (c_Day<t_Day) {
+    return false;
+  }else {
+    return true;
+  }
 }
 
 
