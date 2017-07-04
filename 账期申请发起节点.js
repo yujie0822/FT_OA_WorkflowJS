@@ -16,13 +16,16 @@ jQuery(document).ready(function(){
     if (actNewZq!=actOldZq) {
       if (actNewSeg == "") {
         applyEssAttr_f(7228);
-        applyEssAttr_n(9584);
       }
     }else {
       if (actNewSeg == "") {
         cancelEssAttr_f(7228);
-        cancelEssAttr_n(9584);
       }
+    }
+    if (actNewZq != 0) {
+      applyEssAttr_n(9584);
+    }else {
+      cancelEssAttr_n(9584);
     }
   });
   //PAS申请账期天数变化时
@@ -37,14 +40,17 @@ jQuery(document).ready(function(){
       if (pasNewSeg == "") {
         //Segment与付款条件必填
         applyEssAttr_f(7237);
-        applyEssAttr_n(9586);
       }
     }else {
       if (pasNewSeg == "") {
         //取消Segment与付款条件必填
         cancelEssAttr_f(7237);
-        cancelEssAttr_n(9586);
       }
+    }
+    if (pasNewZq != 0) {
+      applyEssAttr_n(9586);
+    }else {
+      cancelEssAttr_n(9586);
     }
   });
 });
@@ -57,7 +63,7 @@ function checkCustomize(){
   if (actFktj == 0) {
     var actJzr = parseInt(cus_getFieldValue("field7229"));
     var actFkr = parseInt(cus_getFieldValue("field7230"));
-    if ( actJzr <= 0 || actJzr>=31 ) {
+    if ( actJzr <= 0 || actJzr > 31 ) {
       window.top.Dialog.alert("申请结账日无效");
       return false;
     }
@@ -70,7 +76,7 @@ function checkCustomize(){
   if (pasFktj == 0) {
     var pasJzr = parseInt(cus_getFieldValue("field7238"));
     var pasFkr = parseInt(cus_getFieldValue("field7239"));
-    if ( pasJzr <= 0 || pasJzr>=31 ) {
+    if ( pasJzr <= 0 || pasJzr > 31 ) {
       window.top.Dialog.alert("申请结账日无效");
       return false;
     }
@@ -102,6 +108,20 @@ function checkCustomize(){
   var oldEd = parseInt(jQuery("#field7856").val());
   var newEd = parseInt(jQuery("#field7857").val());
 
+  myLog(actNewZq);
+  myLog(actFktj);
+  myLog(pasNewZq);
+  myLog(pasFktj);
+
+  if ((actNewZq != 0)&&(isNaN(actFktj))) {
+    window.top.Dialog.alert("请填写Active付款条件");
+    return false;
+  }
+  if ((pasNewZq != 0)&&(isNaN(pasFktj))) {
+    window.top.Dialog.alert("请填写Passive付款条件");
+    return false;
+  }
+  return false;
   //当Segment为空时不允许提交
   var submitFlag = true;
   if ( ((actNewZq != actOldZq)&&(actNewSeg == "")) || ((pasNewZq != pasOldZq)&&(pasNewSeg == "")) ) {
@@ -171,14 +191,14 @@ function applyEssAttr_n(fieldVal) {
   var img  = "<img align=absMiddle src='/images/BacoError_wev8.gif' />";
   // jQuery("#exp_tr").show();
   jQuery("#field"+fieldVal).attr('viewtype','1');
-  jQuery("#field"+fieldVal+"spanimg").html(img);
+  jQuery("#field"+fieldVal+"span").html(img);
 }
 
 //取消非field框必填
 function cancelEssAttr_n(fieldVal) {
   // jQuery("#exp_tr").hide();
   jQuery("#field"+fieldVal).attr('viewtype','0');
-  jQuery("#field"+fieldVal+"spanimg").html('');
+  jQuery("#field"+fieldVal+"span").html('');
 }
 
 

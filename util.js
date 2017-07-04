@@ -14,6 +14,10 @@ function checkCustomize(){
 
 }
 
+
+function myLog(para) {
+  console.log("Val:"+para+"Type:"+typeof(para));
+}
 //循环明细表
 if(document.getElementById("indexnum0")){
     indexnum0 = document.getElementById("indexnum0").value * 1.0 - 1;
