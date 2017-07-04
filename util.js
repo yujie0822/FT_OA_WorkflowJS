@@ -151,6 +151,26 @@ function hlLabelField(field1,field2,fieldId,labelVal) {
   }
 }
 
+/*  隐藏明细表的某列
+    hideDetailCol(detailTableNum,colNum)
+    detailTableNum：明细表号（第一张表为0，第二张表为1）
+    colNum：明细表列号（第一列为0，第二列为1）
+*/
+function hideDetailCol(detailTableNum,colNum) {
+  jQuery(".detail"+detailTableNum.toString()+"_0_"+colNum.toString()).addClass("detail_hide_col");
+  jQuery(".detail"+detailTableNum.toString()+"_1_"+colNum.toString()).addClass("detail_hide_col");
+  jQuery(".detail"+detailTableNum.toString()+"_3_"+colNum.toString()).addClass("detail_hide_col");
+}
+
+/*
+    隐藏tab页
+    hideTab(tabNum)
+    tabNum:tab号：(第一张tab为1，第二张tab为2)
+*/
+function hideTab(tabNum) {
+  jQuery("#tab_"+tabNum.toString()).addClass("detail_hide_col");
+}
+
 //插入CSS文件
 function insertBSCSS(){
   var head = document.getElementsByTagName('head')[0],
