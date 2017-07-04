@@ -161,7 +161,16 @@ function hideDetailCol(detailTableNum,colNum) {
   jQuery(".detail"+detailTableNum.toString()+"_1_"+colNum.toString()).addClass("detail_hide_col");
   jQuery(".detail"+detailTableNum.toString()+"_3_"+colNum.toString()).addClass("detail_hide_col");
 }
-
+/*  显示明细表的某列
+    showDetailCol(detailTableNum,colNum)
+    detailTableNum：明细表号（第一张表为0，第二张表为1）
+    colNum：明细表列号（第一列为0，第二列为1）
+*/
+function showDetailCol(detailTableNum,colNum) {
+  jQuery(".detail"+detailTableNum.toString()+"_0_"+colNum.toString()).removeClass("detail_hide_col");
+  jQuery(".detail"+detailTableNum.toString()+"_1_"+colNum.toString()).removeClass("detail_hide_col");
+  jQuery(".detail"+detailTableNum.toString()+"_3_"+colNum.toString()).removeClass("detail_hide_col");
+}
 /*
     隐藏tab页
     hideTab(tabNum)
