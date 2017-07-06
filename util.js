@@ -64,8 +64,12 @@ function checkDateGreaterThanToday(dateString) {
   var c_Year = parseInt(dateString.substring(0,4));
   if (c_Year<t_Year) {
     return false;
+  }else if (c_Year>t_Year) {
+    return true;
   }else if (c_Month<t_Month) {
     return false;
+  }else if (c_Month>t_Month) {
+    return true;
   }else if (c_Day<t_Day) {
     return false;
   }else {
@@ -97,14 +101,14 @@ function applyEssAttr_n(fieldVal) {
   var img  = "<img align=absMiddle src='/images/BacoError_wev8.gif' />";
   // jQuery("#exp_tr").show();
   jQuery("#field"+fieldVal).attr('viewtype','1');
-  jQuery("#field"+fieldVal+"spanimg").html(img);
+  jQuery("#field"+fieldVal+"span").html(img);
 }
 
 //取消非field框必填
 function cancelEssAttr_n(fieldVal) {
   // jQuery("#exp_tr").hide();
   jQuery("#field"+fieldVal).attr('viewtype','0');
-  jQuery("#field"+fieldVal+"spanimg").html('');
+  jQuery("#field"+fieldVal+"span").html('');
 }
 
 

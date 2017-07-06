@@ -2,7 +2,7 @@ jQuery(document).ready(function(){
 
   //隐藏订单特殊信息
   var qcaArr = new Array(6000336,6004281);
-  var aacArr = new Array(6004307,6004295,6004288,6000560,6004315,6004301);
+  var aacArr = new Array(6004307,6004295,6004288,6000560,6004315,6004301,6004310);
   var ktstArr = new Array(6000492,6004321);
   var avxArr = new Array(6000534);
   var v_code = parseInt(jQuery("#field8004").val());
