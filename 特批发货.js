@@ -13,7 +13,6 @@ jQuery(document).ready(function(){
            }
       }
   }
-
 });
 
 checkCustomize = function (){

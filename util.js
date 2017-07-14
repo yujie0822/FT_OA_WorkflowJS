@@ -14,6 +14,20 @@ function checkCustomize(){
 
 }
 
+jQuery(document).ready(function(){
+	dobeforecheck = function (){
+    alert("此节点请使用PC端操作");
+    return false;
+	}
+});
+jQuery(document).ready(function(){
+	checkCustomize = function (){
+    alert("请从JDE发起此流程")
+		return false;
+	}
+});
+
+
 
 function myLog(para) {
   console.log("Val:"+para+"Type:"+typeof(para));
@@ -25,6 +39,9 @@ if(document.getElementById("indexnum0")){
 
     }
 }
+
+//取requestid
+var requestid = jQuery("input[name='requestid']").val();
 
 //日期相关
 

@@ -1,17 +1,26 @@
 jQuery(document).ready(function(){
-  //属性联动设置
-	var num = jQuery("#field6402").val();
-	var requestid = jQuery("input[name='requestid']").val();
+	var num = parseInt(jQuery("#field6402").val());
   //如果补充协议为X或Y，是否订单原件/补充协议属性设定为是
 	if (num == 1 || num == 2){
 		jQuery("#field6201").val(1);
+	}else {
+		jQuery("#field6201").val(0);
 	}
 
-//SX单隐藏是否订单原件
-  var soType = jQuery("#field7828").val();
+  var soType = parseInt(jQuery("#field7828").val());
   if (soType == 1) {
-    document.getElementById("tr_ddyj").style.display = "none";
+    jQuery("#field6201").val(1);
+    document.getElementById("field6201").parentNode.parentNode.parentNode.style.display = "none";
   }
+});
+
+
+
+
+
+
+
+
 
   /*
   预测审批路径
@@ -19,7 +28,7 @@ jQuery(document).ready(function(){
   author:Jimmy Yu
   function:output a route string to a text field
 
-  */
+
 
   //字符串
   var csNode = new String("CS");
@@ -116,6 +125,4 @@ jQuery(document).ready(function(){
   }
 
   cus_setInputFieldValue("field7461",result);
-
-
-});
+*/
