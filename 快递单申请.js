@@ -16,7 +16,7 @@ function openBip() {
   }else {
     var mobanStr = "全一带公式";
   }
-  window.open("http://192.168.0.116:7001/xmlpserver/FT_LOG/029.%E5%BF%AB%E9%80%92%E5%8D%95%E6%89%93%E5%8D%B0.xdo?id=ftbip001&passwd=ftbip001&_xf=pdf&_xmode=2&_xt=全一带公式&REQUESTID="+requestid,"PrintWindow","location=no,status=no,scrollvars=no");
+  window.open("http://192.168.0.116:7001/xmlpserver/FT_LOG/029.%E5%BF%AB%E9%80%92%E5%8D%95%E6%89%93%E5%8D%B0.xdo?id=ftbip001&passwd=ftbip001&_xf=pdf&_xmode=2&_xt="+mobanStr+"&REQUESTID="+requestid,"PrintWindow","location=no,status=no,scrollvars=no");
 }
 //插入CSS文件
 function insertBSCSS(){
