@@ -20,6 +20,7 @@ jQuery(document).ready(function(){
     return false;
 	}
 });
+
 jQuery(document).ready(function(){
 	checkCustomize = function (){
     alert("请从JDE发起此流程")

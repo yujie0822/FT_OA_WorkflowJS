@@ -5,7 +5,8 @@ jQuery(document).ready(function(){
       for(var i=0;i<= indexnum1;i++){
            var yqts=parseInt(jQuery("#field7407_"+i.toString()).val());
            var hkrq = jQuery("#field7406_"+i.toString()).val();
-           if(yqts>0){
+           var wjje = parseInt(jQuery("#field7551_"+i.toString()).val());
+           if( (yqts>0) && (wjje >0) ){
              jQuery("#field7406_"+i.toString()).attr('viewtype','1');
              if (hkrq == "") {
                jQuery("#field7406_"+i.toString()+"span").html(img);

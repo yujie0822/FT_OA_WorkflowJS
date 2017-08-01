@@ -53,12 +53,19 @@ jQuery(document).ready(function(){
       cancelEssAttr_n(9586);
     }
   });
+
+  //申请额度为0时清空
+  jQuery("#field7857").bindPropertyChange(function () {
+    if (parseInt(jQuery("#field7857").val()) == 0 ){
+      jQuery("#field7857").val("");
+    }
+  });
 });
 
 function checkCustomize(){
   //付款条件
-  var actFktj = parseInt(cus_getFieldValue("field9584"));
-  var pasFktj = parseInt(cus_getFieldValue("field9586"));
+  var actFktj = parseInt(jQuery("#field9584").val());
+  var pasFktj = parseInt(jQuery("#field9586").val());
 
   if (actFktj == 0) {
     var actJzr = parseInt(cus_getFieldValue("field7229"));
@@ -108,11 +115,6 @@ function checkCustomize(){
   var oldEd = parseInt(jQuery("#field7856").val());
   var newEd = parseInt(jQuery("#field7857").val());
 
-  myLog(actNewZq);
-  myLog(actFktj);
-  myLog(pasNewZq);
-  myLog(pasFktj);
-
   if ((actNewZq != 0)&&(isNaN(actFktj))) {
     window.top.Dialog.alert("请填写Active付款条件");
     return false;
@@ -121,7 +123,6 @@ function checkCustomize(){
     window.top.Dialog.alert("请填写Passive付款条件");
     return false;
   }
-  return false;
   //当Segment为空时不允许提交
   var submitFlag = true;
   if ( ((actNewZq != actOldZq)&&(actNewSeg == "")) || ((pasNewZq != pasOldZq)&&(pasNewSeg == "")) ) {
@@ -199,6 +200,10 @@ function cancelEssAttr_n(fieldVal) {
   // jQuery("#exp_tr").hide();
   jQuery("#field"+fieldVal).attr('viewtype','0');
   jQuery("#field"+fieldVal+"span").html('');
+}
+
+function myLog(para) {
+  console.log("Val:"+para+"Type:"+typeof(para));
 }
 
 
