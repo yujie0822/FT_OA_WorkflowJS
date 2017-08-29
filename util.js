@@ -14,6 +14,21 @@ function checkCustomize(){
 
 }
 
+jQuery(document).ready(function(){
+	dobeforecheck = function (){
+    alert("此节点请使用PC端操作");
+    return false;
+	}
+});
+
+jQuery(document).ready(function(){
+	checkCustomize = function (){
+    alert("请从JDE发起此流程")
+		return false;
+	}
+});
+
+
 
 function myLog(para) {
   console.log("Val:"+para+"Type:"+typeof(para));
@@ -25,6 +40,9 @@ if(document.getElementById("indexnum0")){
 
     }
 }
+
+//取requestid
+var requestid = jQuery("input[name='requestid']").val();
 
 //日期相关
 
@@ -64,8 +82,12 @@ function checkDateGreaterThanToday(dateString) {
   var c_Year = parseInt(dateString.substring(0,4));
   if (c_Year<t_Year) {
     return false;
+  }else if (c_Year>t_Year) {
+    return true;
   }else if (c_Month<t_Month) {
     return false;
+  }else if (c_Month>t_Month) {
+    return true;
   }else if (c_Day<t_Day) {
     return false;
   }else {
@@ -97,14 +119,14 @@ function applyEssAttr_n(fieldVal) {
   var img  = "<img align=absMiddle src='/images/BacoError_wev8.gif' />";
   // jQuery("#exp_tr").show();
   jQuery("#field"+fieldVal).attr('viewtype','1');
-  jQuery("#field"+fieldVal+"spanimg").html(img);
+  jQuery("#field"+fieldVal+"span").html(img);
 }
 
 //取消非field框必填
 function cancelEssAttr_n(fieldVal) {
   // jQuery("#exp_tr").hide();
   jQuery("#field"+fieldVal).attr('viewtype','0');
-  jQuery("#field"+fieldVal+"spanimg").html('');
+  jQuery("#field"+fieldVal+"span").html('');
 }
 
 
@@ -138,10 +160,19 @@ function findEleInArray(arr,val) {
 }
 
 //比较field1与field2的值，若不同，在fieldId同级dom下新增label-danger,值为labelVal
-function hlLabelField(field1,field2,fieldId,labelVal) {
-  var labelVal = arguments[3]?arguments[3]:"New"
+function hlLabelField(field1,field2,fieldId,labelVal,changeTag) {
+  var labelVal = arguments[3]?arguments[3]:"New";
+  var cgTag = arguments[4]?arguments[4]:false;
   var var1 = jQuery("#field"+field1.toString()).val();
   var var2 = jQuery("#field"+field2.toString()).val();
+  if (cgTag) {
+    if (var1 == ""){
+      var1 = "0";
+    }
+    if (var2 == "") {
+      var2 = "0";
+    }
+  }
   if (var1 != var2) {
     var tempSpan = document.createElement("span");
     tempSpan.className = "label label-danger label-xs";
@@ -149,6 +180,35 @@ function hlLabelField(field1,field2,fieldId,labelVal) {
     tempSpan.innerHTML = labelVal;
     document.getElementById(fieldId).parentNode.appendChild(tempSpan);
   }
+}
+
+/*  隐藏明细表的某列
+    hideDetailCol(detailTableNum,colNum)
+    detailTableNum：明细表号（第一张表为0，第二张表为1）
+    colNum：明细表列号（第一列为0，第二列为1）
+*/
+function hideDetailCol(detailTableNum,colNum) {
+  jQuery(".detail"+detailTableNum.toString()+"_0_"+colNum.toString()).addClass("detail_hide_col");
+  jQuery(".detail"+detailTableNum.toString()+"_1_"+colNum.toString()).addClass("detail_hide_col");
+  jQuery(".detail"+detailTableNum.toString()+"_3_"+colNum.toString()).addClass("detail_hide_col");
+}
+/*  显示明细表的某列
+    showDetailCol(detailTableNum,colNum)
+    detailTableNum：明细表号（第一张表为0，第二张表为1）
+    colNum：明细表列号（第一列为0，第二列为1）
+*/
+function showDetailCol(detailTableNum,colNum) {
+  jQuery(".detail"+detailTableNum.toString()+"_0_"+colNum.toString()).removeClass("detail_hide_col");
+  jQuery(".detail"+detailTableNum.toString()+"_1_"+colNum.toString()).removeClass("detail_hide_col");
+  jQuery(".detail"+detailTableNum.toString()+"_3_"+colNum.toString()).removeClass("detail_hide_col");
+}
+/*
+    隐藏tab页
+    hideTab(tabNum)
+    tabNum:tab号：(第一张tab为1，第二张tab为2)
+*/
+function hideTab(tabNum) {
+  jQuery("#tab_"+tabNum.toString()).addClass("detail_hide_col");
 }
 
 //插入CSS文件

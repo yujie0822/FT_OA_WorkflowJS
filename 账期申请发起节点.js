@@ -53,12 +53,19 @@ jQuery(document).ready(function(){
       cancelEssAttr_n(9586);
     }
   });
+
+  //申请额度为0时清空
+  jQuery("#field7857").bindPropertyChange(function () {
+    if (parseInt(jQuery("#field7857").val()) == 0 ){
+      jQuery("#field7857").val("");
+    }
+  });
 });
 
 function checkCustomize(){
   //付款条件
-  var actFktj = parseInt(cus_getFieldValue("field9584"));
-  var pasFktj = parseInt(cus_getFieldValue("field9586"));
+  var actFktj = parseInt(jQuery("#field9584").val());
+  var pasFktj = parseInt(jQuery("#field9586").val());
 
   if (actFktj == 0) {
     var actJzr = parseInt(cus_getFieldValue("field7229"));
@@ -108,11 +115,6 @@ function checkCustomize(){
   var oldEd = parseInt(jQuery("#field7856").val());
   var newEd = parseInt(jQuery("#field7857").val());
 
-  myLog(actNewZq);
-  myLog(actFktj);
-  myLog(pasNewZq);
-  myLog(pasFktj);
-
   if ((actNewZq != 0)&&(isNaN(actFktj))) {
     window.top.Dialog.alert("请填写Active付款条件");
     return false;
@@ -121,7 +123,6 @@ function checkCustomize(){
     window.top.Dialog.alert("请填写Passive付款条件");
     return false;
   }
-  return false;
   //当Segment为空时不允许提交
   var submitFlag = true;
   if ( ((actNewZq != actOldZq)&&(actNewSeg == "")) || ((pasNewZq != pasOldZq)&&(pasNewSeg == "")) ) {
@@ -137,36 +138,6 @@ function checkCustomize(){
     return false;
   }
 
-  //公司性质必填
-
-  submitFlag = false;
-
-  for (var i = 0; i < 6; i++) {
-    var fieldNum = 7265+i;
-    if (jQuery("#field"+fieldNum.toString()).is(":checked")) {
-      submitFlag = true;
-    }
-  }
-
-
-  if (!submitFlag) {
-    window.top.Dialog.alert("请填写公司性质");
-    return false;
-  }
-
-
-  var actIsYueJie = parseInt(jQuery("#field9584").val());
-  var pasIsYueJie = parseInt(jQuery("#field9586").val());
-  var actZq = parseInt(jQuery("#field7227").val());
-  var pasZq = parseInt(jQuery("#field7236").val());
-  if (actIsYueJie == 0) {
-    actZq+=30;
-  }
-  if (pasIsYueJie == 0) {
-    pasZq+=30;
-  }
-  var appZq = actZq>pasZq?actZq:pasZq;
-  jQuery("#field7241").val(appZq);
   return true;
 }
 
@@ -199,6 +170,10 @@ function cancelEssAttr_n(fieldVal) {
   // jQuery("#exp_tr").hide();
   jQuery("#field"+fieldVal).attr('viewtype','0');
   jQuery("#field"+fieldVal+"span").html('');
+}
+
+function myLog(para) {
+  console.log("Val:"+para+"Type:"+typeof(para));
 }
 
 

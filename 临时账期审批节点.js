@@ -1,21 +1,20 @@
 jQuery(document).ready(function(){
   insertBSCSS();
-  //信用额度
-  hlLabelField(7856,7857,"field7857","New",true);
-  //付款方式
-  hlLabelField(7845,9592,"field9592","New",true);
-//ACT账期
-  hlLabelField(7223,7227,"field7227","New",true);
-  hlLabelField(7224,7228,"field7228","New",true);
-  hlLabelField(7225,7229,"field7229","New",true);
-  hlLabelField(7226,7230,"field7230","New",true);
-  hlLabelField(9583,9584,"field9584","New",false);
-//PAS账期
-  hlLabelField(7232,7236,"field7236","New",true);
-  hlLabelField(7233,7237,"field7237","New",true);
-  hlLabelField(7234,7238,"field7238","New",true);
-  hlLabelField(7235,7239,"field7239","New",true);
-  hlLabelField(9585,9586,"field9586","New",false);
+  hlLabelField(7856,7857,"field7857","New");
+  hlLabelField(7845,9592,"field9592","New");
+
+
+  hlLabelField(7223,7227,"field7227","New");
+  hlLabelField(7224,7228,"field7228","New");
+  hlLabelField(7225,7229,"field7229","New");
+  hlLabelField(7226,7230,"field7230","New");
+  hlLabelField(9583,9584,"field9584","New");
+
+  hlLabelField(7232,7236,"field7236","New");
+  hlLabelField(7233,7237,"field7237","New");
+  hlLabelField(7234,7238,"field7238","New");
+  hlLabelField(7235,7239,"field7239","New");
+  hlLabelField(9585,9586,"field9586","New");
 
  });
 

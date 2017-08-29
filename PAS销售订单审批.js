@@ -1,16 +1,21 @@
 jQuery(document).ready(function(){
-  //属性联动设置
-	var num = jQuery("#field6405").val();
-	var requestid = jQuery("input[name='requestid']").val();
+	var num = parseInt(jQuery("#field6405").val());
   //如果补充协议为X或Y，是否订单原件/补充协议属性设定为是
 	if (num == 1 || num == 2){
 		jQuery("#field6154").val(1);
+	}else {
+		jQuery("#field6154").val(0);
 	}
 
-  var soType = jQuery("#field7826").val();
+  var soType = parseInt(jQuery("#field7826").val());
   if (soType == 1) {
-    document.getElementById("tr_ddyj").style.display = "none";
+    jQuery("#field6154").val(1);
+    document.getElementById("field6154").parentNode.parentNode.parentNode.style.display = "none";
   }
+});
+
+
+//参考
 
 
   /*
@@ -19,7 +24,7 @@ jQuery(document).ready(function(){
   author:Jimmy Yu
   function:output a route string to a text field
 
-  */
+
   //字符串
   var csNode = new String("CS");
   var cszgNode = new String("-->CS主管");
@@ -126,7 +131,4 @@ jQuery(document).ready(function(){
     result = "销售备货单转订单，只需审批至CS主管";
   }
 
-  cus_setInputFieldValue("field7460",result);
-
-
-});
+  */
