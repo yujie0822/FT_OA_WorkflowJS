@@ -1,3 +1,4 @@
+
 jQuery(document).ready(function(){
 
   //隐藏订单特殊信息
@@ -22,11 +23,19 @@ jQuery(document).ready(function(){
   }else {
     hideTab(2);
   }
+  jQuery("#field10888").bindPropertyChange(function () {
+    var hqCode = parseInt(jQuery("#field10888").val());
+    if (hqCode == 2) {
+      alert("采购订单回签代码为P");
+    }
+  });
+
 
   //预测路径代码
-  insertBSCSS();
-  var btnArea = document.getElementById("btnArea");
-  btnArea.innerHTML = "<input type='button' class = 'btn btn-default btn-xs' value='预测审批路径' id='updateBtn' onclick = 'ycRoute()' />";
+
+//  insertBSCSS();
+ // var btnArea = document.getElementById("btnArea");
+ // btnArea.innerHTML = "<input type='button' class = 'btn btn-default btn-xs' value='预测审批路径' id='updateBtn' onclick = 'ycRoute()' />";
 });
 
 function checkCustomize(){

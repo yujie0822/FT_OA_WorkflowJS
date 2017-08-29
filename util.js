@@ -160,10 +160,19 @@ function findEleInArray(arr,val) {
 }
 
 //比较field1与field2的值，若不同，在fieldId同级dom下新增label-danger,值为labelVal
-function hlLabelField(field1,field2,fieldId,labelVal) {
-  var labelVal = arguments[3]?arguments[3]:"New"
+function hlLabelField(field1,field2,fieldId,labelVal,changeTag) {
+  var labelVal = arguments[3]?arguments[3]:"New";
+  var cgTag = arguments[4]?arguments[4]:false;
   var var1 = jQuery("#field"+field1.toString()).val();
   var var2 = jQuery("#field"+field2.toString()).val();
+  if (cgTag) {
+    if (var1 == ""){
+      var1 = "0";
+    }
+    if (var2 == "") {
+      var2 = "0";
+    }
+  }
   if (var1 != var2) {
     var tempSpan = document.createElement("span");
     tempSpan.className = "label label-danger label-xs";

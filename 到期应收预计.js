@@ -5,21 +5,23 @@ function checkCustomize(){
   var detail = wfDetail.doGet(0); // 得到第 1 个明细的数据
   var datas = detail.datas; // 获取明细数据
   for (var i=0;i<datas.length;i++){
-    if (!checkDateGreaterThanToday(datas[i].wdfield7950)) {
-      canSubmit = false;
-      x=i;
-      reason = 2;
-      break;
-    }
-
-    if (datas[i].wdfield7951 != "") {
-      if (datas[i].wdfield7950 == "") {
+    if (parseInt(datas[i].wdfield7949)>0) {
+      if (!checkDateGreaterThanToday(datas[i].wdfield7950)) {
         canSubmit = false;
-        x = i;
-        reason = 1;
+        x=i;
+        reason = 2;
         break;
       }
+      if (datas[i].wdfield7951 != "") {
+        if (datas[i].wdfield7953 == "") {
+          canSubmit = false;
+          x = i;
+          reason = 1;
+          break;
+        }
+      }
     }
+
   }
   if (!canSubmit) {
     if (reason == 1) {

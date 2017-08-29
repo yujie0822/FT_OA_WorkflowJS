@@ -138,36 +138,6 @@ function checkCustomize(){
     return false;
   }
 
-  //公司性质必填
-
-  submitFlag = false;
-
-  for (var i = 0; i < 6; i++) {
-    var fieldNum = 7265+i;
-    if (jQuery("#field"+fieldNum.toString()).is(":checked")) {
-      submitFlag = true;
-    }
-  }
-
-
-  if (!submitFlag) {
-    window.top.Dialog.alert("请填写公司性质");
-    return false;
-  }
-
-
-  var actIsYueJie = parseInt(jQuery("#field9584").val());
-  var pasIsYueJie = parseInt(jQuery("#field9586").val());
-  var actZq = parseInt(jQuery("#field7227").val());
-  var pasZq = parseInt(jQuery("#field7236").val());
-  if (actIsYueJie == 0) {
-    actZq+=30;
-  }
-  if (pasIsYueJie == 0) {
-    pasZq+=30;
-  }
-  var appZq = actZq>pasZq?actZq:pasZq;
-  jQuery("#field7241").val(appZq);
   return true;
 }
 
