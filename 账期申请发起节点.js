@@ -60,6 +60,19 @@ jQuery(document).ready(function(){
       jQuery("#field7857").val("");
     }
   });
+  hideCusDetail();
+  jQuery("#field12376").bindPropertyChange(function () {
+    hideCusDetail();
+  });
+
+  //如果成立年份为0，则改为空
+  jQuery("#field11388").bindPropertyChange(function () {
+    var clnf = parseInt(jQuery("#field11388").val()||0);
+    if (clnf == 0) {
+      jQuery("#field11388").val("");
+    }
+  });
+
 });
 
 function checkCustomize(){
@@ -139,6 +152,22 @@ function checkCustomize(){
   }
 
   return true;
+}
+
+//根据客户注册地隐藏表单内容
+function hideCusDetail() {
+  var cusArea = jQuery("#field12376").val();
+  console.log(cusArea);
+  if (cusArea == 'CN') {
+    jQuery(".cn").removeClass("edesign_hide");
+    jQuery(".hk").addClass("edesign_hide");
+  }else if (cusArea == 'HK') {
+    jQuery(".hk").removeClass("edesign_hide");
+    jQuery(".cn").addClass("edesign_hide");
+  }else {
+    jQuery(".hk").addClass("edesign_hide");
+    jQuery(".cn").addClass("edesign_hide");
+  }
 }
 
 //设置field框为必填
