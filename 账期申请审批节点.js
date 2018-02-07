@@ -19,23 +19,9 @@ jQuery(document).ready(function(){
   hlLabelField(9585,9586,"field9586","New",false);
 
 //千分位
-//三个月销售额
-  changeSpanNumberWithCommas_M(8908);
-  changeSpanNumberWithCommas_M(8909);
-  changeSpanNumberWithCommas_M(8910);
-  changeSpanNumberWithCommas_M(8911);
-  changeSpanNumberWithCommas_M(8912);
-  changeSpanNumberWithCommas_M(8913);
-  changeSpanNumberWithCommas_M(8914);
-  changeSpanNumberWithCommas_M(8915);
-  //信用额度
-  changeSpanNumberWithCommas_M(7856);
-  changeSpanNumberWithCommas_M(7857);
-  //主营业务
-  changeSpanNumberWithCommas_M(7847);
-  changeDetailSpanNumberWithCommas_M(7848,1);
+  changeSpanNumberWithCommas(7847);
+  changeDetailSpanNumberWithCommas(7848,1);
 
-  hideCusDetail();
  });
 
 /*
@@ -54,21 +40,6 @@ function highlightField(field1,field2,fieldId,highlightColour) {
   }
 }
 
-//根据客户注册地隐藏表单内容
-function hideCusDetail() {
-  var cusArea = jQuery("#field12376").val();
-  console.log(cusArea);
-  if (cusArea == 'CN') {
-    jQuery(".cn").removeClass("edesign_hide");
-    jQuery(".hk").addClass("edesign_hide");
-  }else if (cusArea == 'HK') {
-    jQuery(".hk").removeClass("edesign_hide");
-    jQuery(".cn").addClass("edesign_hide");
-  }else {
-    jQuery(".hk").addClass("edesign_hide");
-    jQuery(".cn").addClass("edesign_hide");
-  }
-}
 
 function hlLabelField(field1,field2,fieldId,labelVal,changeTag) {
   var labelVal = arguments[3]?arguments[3]:"New";
@@ -113,20 +84,6 @@ function changeSpanNumberWithCommas(fieldNum) {
   }
 }
 
-function changeSpanNumberWithCommas_M(fieldNum) {
-  var fieldVal = parseInt(jQuery("#field"+fieldNum).val()||0);
-  var fieldStr = fieldVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  if (document.getElementById("field"+fieldNum+"_span")) {
-    jQuery("#field"+fieldNum+"_span").text(fieldStr);
-  }
-  if (document.getElementById("field"+fieldNum+"span")) {
-    jQuery("#field"+fieldNum+"span").text(fieldStr);
-  }
-  if (document.getElementById("field"+fieldNum+"span_format")) {
-    document.getElementById("field"+fieldNum+"span_format").innerHTML = fieldStr;
-  }
-}
-
 function changeDetailSpanNumberWithCommas(fieldNum,DetailTableNum){
   var indexNum = "indexnum"+(DetailTableNum-1).toString();
   var fieldVal = 0;
@@ -146,25 +103,5 @@ function changeDetailSpanNumberWithCommas(fieldNum,DetailTableNum){
       }
     }
   }
-}
-
-function changeDetailSpanNumberWithCommas_M(fieldNum,DetailTableNum){
-  var indexNum = (DetailTableNum-1).toString();
-  var fieldVal = 0;
-  var fieldStr = "";
-
-  var rowNum_DT1 = getDetailRownum_m(0);
-  for (var i = 0; i < rowNum_DT1; i++) {
-    if (document.getElementById("isshow"+indexNum+"_"+i+"_"+fieldNum)) {
-      fieldVal = parseInt(jQuery("#field"+fieldNum+"_"+i).val()||0);
-      fieldStr = fieldVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      document.getElementById("isshow"+indexNum+"_"+i+"_"+fieldNum).innerHTML = fieldStr;
-    }
-  }
-}
-
-function getDetailRownum_m(detailNum) {
-  var result = jQuery("#nodenum"+detailNum).val();
-  return parseInt(result);
 }
 </script>

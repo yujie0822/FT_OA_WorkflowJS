@@ -157,6 +157,12 @@ function checkCustomize(){
       return false;
     }
   }
+
+  var tel = jQuery("#field8567").val();
+  if (tel.length > 20) {
+    window.top.Dialog.alert("电话长度不能超过20");
+    return false;
+  }
   return true;
 }
 

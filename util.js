@@ -14,6 +14,8 @@ function checkCustomize(){
 
 }
 
+window.top.Dialog.alert("");
+
 jQuery(document).ready(function(){
 	dobeforecheck = function (){
     alert("此节点请使用PC端操作");
@@ -281,4 +283,75 @@ function getDetailValue_m(detailNum,fieldNum,rowNum){
     var result = "";
   }
   return result;
+}
+
+
+//千分位相关
+
+function changeSpanNumberWithCommas(fieldNum) {
+  var fieldVal = parseFloat(jQuery("#field"+fieldNum).val()||0);
+  var fieldStr = fieldVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  jQuery("#field"+fieldNum+"span").text(fieldStr);
+  if (document.getElementById("field"+fieldNum+"span_format")) {
+    document.getElementById("field"+fieldNum+"span_format").innerHTML = fieldStr;
+  }
+}
+
+function changeSpanNumberWithCommas_M(fieldNum) {
+  var fieldVal = parseFloat(jQuery("#field"+fieldNum).val()||0);
+  var fieldStr = fieldVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  if (document.getElementById("field"+fieldNum+"_span")) {
+    jQuery("#field"+fieldNum+"_span").text(fieldStr);
+  }
+  if (document.getElementById("field"+fieldNum+"span")) {
+    jQuery("#field"+fieldNum+"span").text(fieldStr);
+  }
+  if (document.getElementById("field"+fieldNum+"span_format")) {
+    document.getElementById("field"+fieldNum+"span_format").innerHTML = fieldStr;
+  }
+}
+
+function changeDetailSpanNumberWithCommas(fieldNum,DetailTableNum){
+  var indexNum = "indexnum"+(DetailTableNum-1).toString();
+  var fieldVal = 0;
+  var fieldStr = "";
+  if(document.getElementById(indexNum)){
+    indexLen = document.getElementById(indexNum).value * 1.0 - 1;
+    for(var i=0;i<= indexLen;i++){
+      if (document.getElementById("field"+fieldNum+"_"+i+"span")) {
+        fieldVal = parseFloat(jQuery("#field"+fieldNum+"_"+i).val()||0);
+        fieldStr = fieldVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        document.getElementById("field"+fieldNum+"_"+i+"span").innerHTML = fieldStr;
+      }
+      if (document.getElementById("field"+fieldNum+"_"+i+"span_format")) {
+        fieldVal = parseFloat(jQuery("#field"+fieldNum+"_"+i).val()||0);
+        fieldStr = fieldVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        document.getElementById("field"+fieldNum+"_"+i+"span_format").innerHTML = fieldStr;
+      }
+    }
+  }
+}
+
+function changeDetailSpanNumberWithCommas_M(fieldNum,DetailTableNum){
+  var indexNum = (DetailTableNum-1).toString();
+  var fieldVal = 0;
+  var fieldStr = "";
+
+  var rowNum_DT1 = getDetailRownum_m(0);
+  for (var i = 0; i < rowNum_DT1; i++) {
+    if (document.getElementById("isshow"+indexNum+"_"+i+"_"+fieldNum)) {
+      fieldVal = parseFloat(jQuery("#field"+fieldNum+"_"+i).val()||0);
+      fieldStr = fieldVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      document.getElementById("isshow"+indexNum+"_"+i+"_"+fieldNum).innerHTML = fieldStr;
+    }
+  }
+}
+
+//改标题
+
+function createTitle(fieldname) {
+  var titleString = jQuery("#field"+fieldname).val();
+  if (titleString.length > 0) {
+    jQuery("#requestname").val(titleString);
+  }
 }

@@ -31,15 +31,8 @@ jQuery(document).ready(function(){
     showDetailCol(1,13);
     showDetailCol(7,13);
   }else {
-    hideTab(2);
-    hideTab(8);
+    jQuery(".specialInfo").addClass("detail_hide_col");
   }
-
-  var hqCode = parseInt(jQuery("#field12347").val()||-1);
-  if (hqCode == 2) {
-    alert("采购订单回签代码为P");
-  }
-
 
 });
 

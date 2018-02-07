@@ -16,6 +16,7 @@ jQuery(document).ready(function(){
   hlLabelField(7235,7239,"field7239","New");
   hlLabelField(9585,9586,"field9586","New");
 
+  hideCusDetail();
  });
 
 function hlLabelField(field1,field2,fieldId,labelVal,changeTag) {
@@ -37,6 +38,21 @@ function hlLabelField(field1,field2,fieldId,labelVal,changeTag) {
     tempSpan.style = "color:white!important";
     tempSpan.innerHTML = labelVal;
     document.getElementById(fieldId).parentNode.appendChild(tempSpan);
+  }
+}
+
+//根据客户注册地隐藏表单内容
+function hideCusDetail() {
+  var cusArea = jQuery("#field12376").val();
+  if (cusArea == 'CN') {
+    jQuery(".cn").removeClass("edesign_hide");
+    jQuery(".hk").addClass("edesign_hide");
+  }else if (cusArea == 'HK') {
+    jQuery(".hk").removeClass("edesign_hide");
+    jQuery(".cn").addClass("edesign_hide");
+  }else {
+    jQuery(".hk").addClass("edesign_hide");
+    jQuery(".cn").addClass("edesign_hide");
   }
 }
 
