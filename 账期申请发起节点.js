@@ -1,56 +1,22 @@
 <script type="text/javascript">
 
 jQuery(document).ready(function(){
-  //取旧账期天数
-  var actOldZq = jQuery("#field7223").val();
-  var pasOldZq = jQuery("#field7232").val();
-  //ACT申请账期天数变化时
-  jQuery("#field7227").bindPropertyChange(function () {
-    //输入为空默认赋值为0
-    if (jQuery("#field7227").val() == "") {
-      var actNewZq = 0;
-    }else {
-      var actNewZq = parseInt(jQuery("#field7227").val());
-    }
-    var actNewSeg = jQuery("#field7228").val();
-    if (actNewZq!=actOldZq) {
-      if (actNewSeg == "") {
-        applyEssAttr_f(7228);
-      }
-    }else {
-      if (actNewSeg == "") {
-        cancelEssAttr_f(7228);
-      }
-    }
-    if (actNewZq != 0) {
-      applyEssAttr_n(9584);
-    }else {
-      cancelEssAttr_n(9584);
+  //票后清空结账日付款日
+  //ACT付款条件改变时
+  jQuery("#field9584").bindPropertyChange(function () {
+    var actFktj = parseInt(jQuery("#field9584").val()||-1);
+    if (actFktj == 1) {
+      jQuery("#field7229").val("");
+      jQuery("#field7230").val("");
     }
   });
-  //PAS申请账期天数变化时
-  jQuery("#field7236").bindPropertyChange(function () {
-    if (jQuery("#field7236").val() == "") {
-      var pasNewZq = 0;
-    }else {
-      var pasNewZq = parseInt(jQuery("#field7236").val());
-    }
-    var pasNewSeg = jQuery("#field7237").val();
-    if (pasNewZq!=pasOldZq) {
-      if (pasNewSeg == "") {
-        //Segment与付款条件必填
-        applyEssAttr_f(7237);
-      }
-    }else {
-      if (pasNewSeg == "") {
-        //取消Segment与付款条件必填
-        cancelEssAttr_f(7237);
-      }
-    }
-    if (pasNewZq != 0) {
-      applyEssAttr_n(9586);
-    }else {
-      cancelEssAttr_n(9586);
+
+  //PAS付款条件该表时
+  jQuery("#field9586").bindPropertyChange(function () {
+    var pasFktj = parseInt(jQuery("#field9586").val()||-1);
+    if (pasFktj == 1) {
+      jQuery("#field7238").val("");
+      jQuery("#field7239").val("");
     }
   });
 
@@ -60,82 +26,83 @@ jQuery(document).ready(function(){
       jQuery("#field7857").val("");
     }
   });
+
+  jQuery("#field12376").bindPropertyChange(function () {
+    hideCusDetail();
+  });
+
+  //如果成立年份为0，则改为空
+  jQuery("#field11388").bindPropertyChange(function () {
+    var clnf = parseInt(jQuery("#field11388").val()||-1);
+    if (clnf == 0) {
+      jQuery("#field11388").val("");
+    }
+  });
+
+  //客户注册地为CN时，必填统一社会信用代码，香港时必填商业登记证号
+  jQuery("#field12376").bindPropertyChange(function () {
+    var c_area = jQuery("#field12376").val();
+    if (c_area == 'CN') {
+      applyEssAttr_n(7035);
+    }else if (c_area == 'HK') {
+      applyEssAttr_n(7037);
+    }else {
+      cancelEssAttr_n(7035);
+      cancelEssAttr_n(7037);
+    }
+  });
+
 });
 
 function checkCustomize(){
-  //付款条件
-  var actFktj = parseInt(jQuery("#field9584").val());
-  var pasFktj = parseInt(jQuery("#field9586").val());
 
+  createTitle(14026);
+  //月结判断结账日
+  var actFktj = parseInt(jQuery("#field9584").val()||-1);
+  var pasFktj = parseInt(jQuery("#field9586").val()||-1);
+  var actZqts = parseInt(jQuery("#field7227").val()||-1);
+  var pasZqts = parseInt(jQuery("#field7236").val()||-1);
   if (actFktj == 0) {
-    var actJzr = parseInt(cus_getFieldValue("field7229"));
-    var actFkr = parseInt(cus_getFieldValue("field7230"));
-    if ( actJzr <= 0 || actJzr > 31 ) {
-      window.top.Dialog.alert("申请结账日无效");
+    var jzr = parseInt(jQuery("#field7229").val()||-1);
+    var fkr = parseInt(jQuery("#field7230").val()||-1);
+    if (jzr <= 0 || jzr > 31) {
+      alert("Active月结结账日无效");
       return false;
     }
-    if (actFkr <= 0 || actFkr > 31) {
-      window.top.Dialog.alert("申请付款日无效");
+    if (fkr <= 0 || fkr > 31) {
+      alert("Active月结付款日无效");
+      return false;
+    }
+    if (actZqts <= 0) {
+      alert("Active账期天数无效");
+      return false;
+    }
+  }else if (actFktj == 1) {
+    if (actZqts <= 0) {
+      alert("Active账期天数无效");
       return false;
     }
   }
-
   if (pasFktj == 0) {
-    var pasJzr = parseInt(cus_getFieldValue("field7238"));
-    var pasFkr = parseInt(cus_getFieldValue("field7239"));
-    if ( pasJzr <= 0 || pasJzr > 31 ) {
-      window.top.Dialog.alert("申请结账日无效");
+    var jzr = parseInt(jQuery("#field7238").val()||-1);
+    var fkr = parseInt(jQuery("#field7239").val()||-1);
+    if (jzr <= 0 || jzr > 31) {
+      alert("Passive月结结账日无效");
       return false;
     }
-    if (pasFkr <= 0 || pasFkr > 31) {
-      window.top.Dialog.alert("申请付款日无效");
+    if (fkr <= 0 || fkr > 31) {
+      alert("Passive月结付款日无效");
       return false;
     }
-  }
-
-  //取旧账期天数
-  var actOldZq = parseInt(jQuery("#field7223").val());
-  var pasOldZq = parseInt(jQuery("#field7232").val());
-  //取ACT申请账期天数与Segment
-  if (jQuery("#field7227").val() == "") {
-    var actNewZq = 0;
-  }else {
-    var actNewZq = parseInt(jQuery("#field7227").val());
-  }
-  var actNewSeg = jQuery("#field7228").val();
-  //取PAS申请账期天数与Segment
-  if (jQuery("#field7236").val() == "") {
-    var pasNewZq = 0;
-  }else {
-    var pasNewZq = parseInt(jQuery("#field7236").val());
-  }
-  var pasNewSeg = jQuery("#field7237").val();
-
-  //取信用额度
-  var oldEd = parseInt(jQuery("#field7856").val());
-  var newEd = parseInt(jQuery("#field7857").val());
-
-  if ((actNewZq != 0)&&(isNaN(actFktj))) {
-    window.top.Dialog.alert("请填写Active付款条件");
-    return false;
-  }
-  if ((pasNewZq != 0)&&(isNaN(pasFktj))) {
-    window.top.Dialog.alert("请填写Passive付款条件");
-    return false;
-  }
-  //当Segment为空时不允许提交
-  var submitFlag = true;
-  if ( ((actNewZq != actOldZq)&&(actNewSeg == "")) || ((pasNewZq != pasOldZq)&&(pasNewSeg == "")) ) {
-    submitFlag = false;
-  }
-
-  if ((oldEd != newEd)&&(actNewSeg == "")&&(pasNewSeg == "")) {
-    submitFlag =false;
-  }
-
-  if (!submitFlag) {
-    window.top.Dialog.alert("请填写申请Segment");
-    return false;
+    if (pasZqts <= 0) {
+      alert("Passive账期天数无效");
+      return false;
+    }
+  }else if (pasFktj == 1) {
+    if (pasZqts <= 0) {
+      alert("Passive账期天数无效");
+      return false;
+    }
   }
 
   return true;
@@ -174,6 +141,13 @@ function cancelEssAttr_n(fieldVal) {
 
 function myLog(para) {
   console.log("Val:"+para+"Type:"+typeof(para));
+}
+
+function createTitle(fieldname) {
+  var titleString = jQuery("#field"+fieldname).val();
+  if (titleString.length > 0) {
+    jQuery("#requestname").val(titleString);
+  }
 }
 
 

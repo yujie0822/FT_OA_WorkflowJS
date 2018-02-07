@@ -1,3 +1,4 @@
+<script type="text/javascript">
 jQuery(document).ready(function(){
   insertBSCSS();
   //信用额度
@@ -17,7 +18,28 @@ jQuery(document).ready(function(){
   hlLabelField(7235,7239,"field7239","New",true);
   hlLabelField(9585,9586,"field9586","New",false);
 
+//千分位
+  changeSpanNumberWithCommas(7847);
+  changeDetailSpanNumberWithCommas(7848,1);
+
  });
+
+/*
+比较2个field值，改变id所在区域的背景色
+用法：highlightField(field1数字,field2数字,改变的ID名,高亮颜色(不填默认为#FFD2D2));
+例如：highlightField(6666,6667,"cus_id1","red");
+*/
+
+function highlightField(field1,field2,fieldId,highlightColour) {
+  var highlightColour = arguments[3]?arguments[3]:"#FFD2D2"
+  var var1 = jQuery("#field"+field1.toString()).val();
+  var var2 = jQuery("#field"+field2.toString()).val();
+
+  if (var1 != var2) {
+    document.getElementById(fieldId).style.backgroundColor=highlightColour;
+  }
+}
+
 
 function hlLabelField(field1,field2,fieldId,labelVal,changeTag) {
   var labelVal = arguments[3]?arguments[3]:"New";
@@ -53,3 +75,33 @@ function insertBSCSS(){
  linkTag.setAttribute('type','text/css');
  head.appendChild(linkTag);
 }
+function changeSpanNumberWithCommas(fieldNum) {
+  var fieldVal = parseInt(jQuery("#field"+fieldNum).val()||0);
+  var fieldStr = fieldVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  jQuery("#field"+fieldNum+"span").text(fieldStr);
+  if (document.getElementById("field"+fieldNum+"span_format")) {
+    document.getElementById("field"+fieldNum+"span_format").innerHTML = fieldStr;
+  }
+}
+
+function changeDetailSpanNumberWithCommas(fieldNum,DetailTableNum){
+  var indexNum = "indexnum"+(DetailTableNum-1).toString();
+  var fieldVal = 0;
+  var fieldStr = "";
+  if(document.getElementById(indexNum)){
+    indexLen = document.getElementById(indexNum).value * 1.0 - 1;
+    for(var i=0;i<= indexLen;i++){
+      if (document.getElementById("field"+fieldNum+"_"+i+"span")) {
+        fieldVal = parseInt(jQuery("#field"+fieldNum+"_"+i).val()||0);
+        fieldStr = fieldVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        document.getElementById("field"+fieldNum+"_"+i+"span").innerHTML = fieldStr;
+      }
+      if (document.getElementById("field"+fieldNum+"_"+i+"span_format")) {
+        fieldVal = parseInt(jQuery("#field"+fieldNum+"_"+i).val()||0);
+        fieldStr = fieldVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        document.getElementById("field"+fieldNum+"_"+i+"span_format").innerHTML = fieldStr;
+      }
+    }
+  }
+}
+</script>
