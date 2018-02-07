@@ -14,27 +14,11 @@ function checkCustomize(){
 
 }
 
-window.top.Dialog.alert("");
-
 jQuery(document).ready(function(){
-	dobeforecheck = function (){
-    alert("此节点请使用PC端操作");
-    return false;
-	}
-});
-
-jQuery(document).ready(function(){
-	checkCustomize = function (){
-    alert("请从JDE发起此流程")
-		return false;
-	}
+  jQuery(".module capital").attr("url","http://www.baidu.com/");
 });
 
 
-
-function myLog(para) {
-  console.log("Val:"+para+"Type:"+typeof(para));
-}
 //循环明细表
 if(document.getElementById("indexnum0")){
     indexnum0 = document.getElementById("indexnum0").value * 1.0 - 1;
@@ -42,9 +26,6 @@ if(document.getElementById("indexnum0")){
 
     }
 }
-
-//取requestid
-var requestid = jQuery("input[name='requestid']").val();
 
 //日期相关
 
@@ -84,12 +65,8 @@ function checkDateGreaterThanToday(dateString) {
   var c_Year = parseInt(dateString.substring(0,4));
   if (c_Year<t_Year) {
     return false;
-  }else if (c_Year>t_Year) {
-    return true;
   }else if (c_Month<t_Month) {
     return false;
-  }else if (c_Month>t_Month) {
-    return true;
   }else if (c_Day<t_Day) {
     return false;
   }else {
@@ -121,17 +98,15 @@ function applyEssAttr_n(fieldVal) {
   var img  = "<img align=absMiddle src='/images/BacoError_wev8.gif' />";
   // jQuery("#exp_tr").show();
   jQuery("#field"+fieldVal).attr('viewtype','1');
-  jQuery("#field"+fieldVal+"span").html(img);
+  jQuery("#field"+fieldVal+"spanimg").html(img);
 }
 
 //取消非field框必填
 function cancelEssAttr_n(fieldVal) {
   // jQuery("#exp_tr").hide();
   jQuery("#field"+fieldVal).attr('viewtype','0');
-  jQuery("#field"+fieldVal+"span").html('');
+  jQuery("#field"+fieldVal+"spanimg").html('');
 }
-
-jQuery("#field6246").attr('readonly', true);//设为只读属性
 
 
 //取明细表中某列的唯一值，返回string
@@ -163,103 +138,6 @@ function findEleInArray(arr,val) {
   }
 }
 
-//比较field1与field2的值，若不同，在fieldId同级dom下新增label-danger,值为labelVal
-function hlLabelField(field1,field2,fieldId,labelVal,changeTag) {
-  var labelVal = arguments[3]?arguments[3]:"New";
-  var cgTag = arguments[4]?arguments[4]:false;
-  var var1 = jQuery("#field"+field1.toString()).val();
-  var var2 = jQuery("#field"+field2.toString()).val();
-  if (cgTag) {
-    if (var1 == ""){
-      var1 = "0";
-    }
-    if (var2 == "") {
-      var2 = "0";
-    }
-  }
-  if (var1 != var2) {
-    var tempSpan = document.createElement("span");
-    tempSpan.className = "label label-danger label-xs";
-    tempSpan.style = "color:white!important";
-    tempSpan.innerHTML = labelVal;
-    document.getElementById(fieldId).parentNode.appendChild(tempSpan);
-  }
-}
-
-/*  隐藏明细表的某列
-    hideDetailCol(detailTableNum,colNum)
-    detailTableNum：明细表号（第一张表为0，第二张表为1）
-    colNum：明细表列号（第一列为0，第二列为1）
-*/
-function hideDetailCol(detailTableNum,colNum) {
-  jQuery(".detail"+detailTableNum.toString()+"_0_"+colNum.toString()).addClass("detail_hide_col");
-  jQuery(".detail"+detailTableNum.toString()+"_1_"+colNum.toString()).addClass("detail_hide_col");
-  jQuery(".detail"+detailTableNum.toString()+"_3_"+colNum.toString()).addClass("detail_hide_col");
-}
-/*  显示明细表的某列
-    showDetailCol(detailTableNum,colNum)
-    detailTableNum：明细表号（第一张表为0，第二张表为1）
-    colNum：明细表列号（第一列为0，第二列为1）
-*/
-function showDetailCol(detailTableNum,colNum) {
-  jQuery(".detail"+detailTableNum.toString()+"_0_"+colNum.toString()).removeClass("detail_hide_col");
-  jQuery(".detail"+detailTableNum.toString()+"_1_"+colNum.toString()).removeClass("detail_hide_col");
-  jQuery(".detail"+detailTableNum.toString()+"_3_"+colNum.toString()).removeClass("detail_hide_col");
-}
-/*
-    隐藏tab页
-    hideTab(tabNum)
-    tabNum:tab号：(第一张tab为1，第二张tab为2)
-*/
-function hideTab(tabNum) {
-  jQuery("#tab_"+tabNum.toString()).addClass("detail_hide_col");
-}
-
-//插入CSS文件
-function insertBSCSS(){
-  var head = document.getElementsByTagName('head')[0],
-    cssURL = '/cus_web/css/bootstrap.min.css',
-    linkTag = document.createElement('link');
-    linkTag.id = 'dynamic-style';
- linkTag.href = cssURL;
- linkTag.setAttribute('rel','stylesheet');
- linkTag.setAttribute('media','all');
- linkTag.setAttribute('type','text/css');
- head.appendChild(linkTag);
-}
-
-//千分位
-
-function changeSpanNumberWithCommas(fieldNum) {
-  var fieldVal = parseInt(jQuery("#field"+fieldNum).val()||0);
-  var fieldStr = fieldVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  jQuery("#field"+fieldNum+"span").text(fieldStr);
-  if (document.getElementById("field"+fieldNum+"span_format")) {
-    document.getElementById("field"+fieldNum+"span_format").innerHTML = fieldStr;
-  }
-}
-
-function changeDetailSpanNumberWithCommas(fieldNum,DetailTableNum){
-  var indexNum = "indexnum"+(DetailTableNum-1).toString();
-  var fieldVal = 0;
-  var fieldStr = "";
-  if(document.getElementById(indexNum)){
-    indexLen = document.getElementById(indexNum).value * 1.0 - 1;
-    for(var i=0;i<= indexLen;i++){
-      if (document.getElementById("field"+fieldNum+"_"+i+"span")) {
-        fieldVal = parseInt(jQuery("#field"+fieldNum+"_"+i).val()||0);
-        fieldStr = fieldVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        document.getElementById("field"+fieldNum+"_"+i+"span").innerHTML = fieldStr;
-      }
-      if (document.getElementById("field"+fieldNum+"_"+i+"span_format")) {
-        fieldVal = parseInt(jQuery("#field"+fieldNum+"_"+i).val()||0);
-        fieldStr = fieldVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        document.getElementById("field"+fieldNum+"_"+i+"span_format").innerHTML = fieldStr;
-      }
-    }
-  }
-}
-
 //手机端明细行相关
 
 function getDetailRownum_m(detailNum) {
@@ -283,75 +161,4 @@ function getDetailValue_m(detailNum,fieldNum,rowNum){
     var result = "";
   }
   return result;
-}
-
-
-//千分位相关
-
-function changeSpanNumberWithCommas(fieldNum) {
-  var fieldVal = parseFloat(jQuery("#field"+fieldNum).val()||0);
-  var fieldStr = fieldVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  jQuery("#field"+fieldNum+"span").text(fieldStr);
-  if (document.getElementById("field"+fieldNum+"span_format")) {
-    document.getElementById("field"+fieldNum+"span_format").innerHTML = fieldStr;
-  }
-}
-
-function changeSpanNumberWithCommas_M(fieldNum) {
-  var fieldVal = parseFloat(jQuery("#field"+fieldNum).val()||0);
-  var fieldStr = fieldVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  if (document.getElementById("field"+fieldNum+"_span")) {
-    jQuery("#field"+fieldNum+"_span").text(fieldStr);
-  }
-  if (document.getElementById("field"+fieldNum+"span")) {
-    jQuery("#field"+fieldNum+"span").text(fieldStr);
-  }
-  if (document.getElementById("field"+fieldNum+"span_format")) {
-    document.getElementById("field"+fieldNum+"span_format").innerHTML = fieldStr;
-  }
-}
-
-function changeDetailSpanNumberWithCommas(fieldNum,DetailTableNum){
-  var indexNum = "indexnum"+(DetailTableNum-1).toString();
-  var fieldVal = 0;
-  var fieldStr = "";
-  if(document.getElementById(indexNum)){
-    indexLen = document.getElementById(indexNum).value * 1.0 - 1;
-    for(var i=0;i<= indexLen;i++){
-      if (document.getElementById("field"+fieldNum+"_"+i+"span")) {
-        fieldVal = parseFloat(jQuery("#field"+fieldNum+"_"+i).val()||0);
-        fieldStr = fieldVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        document.getElementById("field"+fieldNum+"_"+i+"span").innerHTML = fieldStr;
-      }
-      if (document.getElementById("field"+fieldNum+"_"+i+"span_format")) {
-        fieldVal = parseFloat(jQuery("#field"+fieldNum+"_"+i).val()||0);
-        fieldStr = fieldVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        document.getElementById("field"+fieldNum+"_"+i+"span_format").innerHTML = fieldStr;
-      }
-    }
-  }
-}
-
-function changeDetailSpanNumberWithCommas_M(fieldNum,DetailTableNum){
-  var indexNum = (DetailTableNum-1).toString();
-  var fieldVal = 0;
-  var fieldStr = "";
-
-  var rowNum_DT1 = getDetailRownum_m(0);
-  for (var i = 0; i < rowNum_DT1; i++) {
-    if (document.getElementById("isshow"+indexNum+"_"+i+"_"+fieldNum)) {
-      fieldVal = parseFloat(jQuery("#field"+fieldNum+"_"+i).val()||0);
-      fieldStr = fieldVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      document.getElementById("isshow"+indexNum+"_"+i+"_"+fieldNum).innerHTML = fieldStr;
-    }
-  }
-}
-
-//改标题
-
-function createTitle(fieldname) {
-  var titleString = jQuery("#field"+fieldname).val();
-  if (titleString.length > 0) {
-    jQuery("#requestname").val(titleString);
-  }
 }

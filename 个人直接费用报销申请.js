@@ -43,7 +43,7 @@ checkCustomize = function(){
   	 }
   }else {
     //如果产品线比例表没有记录，则不允许提交
-    var cpxbls = parseInt(jQuery("#field16488").val()||-1);
+    var cpxbls = parseInt(jQuery("#field16729").val()||-1);
     if (cpxbls == 0) {
       alert("系统中未登记产品线比例表，请联系HR核查");
       return false;
